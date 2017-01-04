@@ -37,6 +37,7 @@ const initialState = {
   }, {
     index: 1,
     isMouseDown: false,
+    isPressed: false,
     type: TEXT,
     label: 'T'
   }]

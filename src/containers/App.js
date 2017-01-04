@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+import {compose, bindActionCreators} from 'redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux'
 import Toolbar from '../components/Toolbar'
 import Elements from '../components/Elements'
@@ -38,4 +40,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default compose(
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps, mapDispatchToProps)
+)(App)

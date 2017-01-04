@@ -1,17 +1,21 @@
 import React, { PropTypes, Component } from 'react'
 
 import Button from './Button'
+import DraggableDiv from './DraggableDiv'
 
 export default class Toolbar extends Component {
   render() {
     const props = this.props
-    return <div>
+    return <div className="row">
       {this.props.buttons.map(button =>
-        <Button 
-          button={button} 
-          {...props}
-          key={ button.index } 
-        />
+        <div className="col-md-1" key={ button.index }>
+          <DraggableDiv key={ button.index }>
+            <Button 
+              button={button} 
+              {...props}
+            />
+          </DraggableDiv>
+        </div>
       )}
     </div>
   }
@@ -19,8 +23,5 @@ export default class Toolbar extends Component {
 
 Toolbar.propTypes = {
   buttons: PropTypes.array.isRequired,
-  clickButton: PropTypes.func.isRequired,
-  mouseDownButton: PropTypes.func.isRequired,
-  mouseUpButton: PropTypes.func.isRequired,
-  mouseMoveButton: PropTypes.func.isRequired
+  clickButton: PropTypes.func.isRequired
 }

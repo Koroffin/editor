@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react'
 
+import {DragSource} from 'react-dnd';
+import ItemTypes from '../constants/ItemTypes';
+
 export default class Button extends Component {
   onClick() {
     this.props.clickButton(this.props.button)
@@ -14,32 +17,31 @@ export default class Button extends Component {
     return res;
   }
   renderDropdown(button) {
-    return <span className="dropdown">
-      <span 
+    return <div className="dropdown">
+      <div 
         id={ "toolbar-button-" + button.index } 
         data-toggle="dropdown" 
         aria-haspopup="true" 
         aria-expanded="false"
         className={ "btn btn-primary btn-success" + ((button.isPressed) ? " active" : "") }
-        onMouseDown={ (e)=> this.onMouseDown(e) }
         onClick={ ()=> this.onClick(button) }
       >
         { button.icon ? <span className={ "glyphicon glyphicon-" + button.icon }></span> : button.label }
         <span className="caret"></span>
-      </span>
+      </div>
       <ul className="dropdown-menu" aria-labelledby={ "toolbar-button-" + button.index }>
         
       </ul>
-    </span>
+    </div>
   }
   renderButton(button) {
-    return <span 
+    return <div 
       className={ "btn btn-primary btn-success" + ((button.isPressed) ? " active" : "") }
       onClick={ ()=> this.onClick() }
       style={ this.getStyle() }
     >
       { button.icon ? <span className={ "glyphicon glyphicon-" + button.icon }></span> : button.label }
-    </span>
+    </div>
   }
   render() {
     const { button } = this.props
