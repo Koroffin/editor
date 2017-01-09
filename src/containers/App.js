@@ -9,7 +9,6 @@ import * as toolbarActions from '../actions/ToolbarActions'
 
 class App extends Component {
   render() {
-    console.log(this.props);
     const { toolbar } = this.props
     const { elements } = this.props
     const { toolbarActions } = this.props
@@ -17,12 +16,9 @@ class App extends Component {
     return <div>
       <Toolbar 
         buttons={toolbar.buttons} 
-        clickButton={toolbarActions.clickButton} 
-        mouseDownButton={toolbarActions.mouseDownButton} 
-        mouseUpButton={toolbarActions.mouseUpButton} 
-        mouseMoveButton={toolbarActions.mouseMoveButton} 
+        {... toolbarActions}
       />
-      <Elements elements={elements} />
+      <Elements {... elements} />
     </div>
   }
 }

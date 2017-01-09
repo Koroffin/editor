@@ -18,16 +18,20 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  module: { //Обновлено
-    loaders: [ //добавили babel-loader
+  module: {
+    loaders: [
       {
-        loaders: ['babel-loader'],
+        loaders: [ 'babel-loader' ],
         include: [
           path.resolve(__dirname, "src"),
         ],
         test: /\.js$/,
-        plugins: ['transform-runtime'],
-      }
+        plugins: [ 'transform-runtime' ],
+      },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.jpg$/, loader: "file-loader" },
+      { test: /\.less$/, loader: "style!css!less" }
     ]
   }
 }

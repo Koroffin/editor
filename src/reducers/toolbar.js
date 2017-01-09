@@ -1,90 +1,65 @@
 import { 
   CLICK_BUTTON, 
-  MOUSE_DOWN_BUTTON, 
-  MOUSE_UP_BUTTON, 
-  MOUSE_MOVE_BUTTON 
+  DRAG_START_BUTTON,
+  DRAG_END_BUTTON,
+  SWITCH_BUTTON
 } from '../constants/Toolbar'
 
 import { H1, H2, H3, H4, TEXT } from '../constants/Elements'
 
 const initialState = {
   buttons: [{
-    icon: 'header',
     index: 0,
     type: H1,
-    isMouseDown: false,
+    props: {
+      bsStyle: 'success',
+      title: 'H1',
+      id: 'TOOLBAR_H1_BUTTON'
+    },
     children: [{
-      icon: 'header',
       index: 0,
       type: H1,
-      isPressed: false
+      props: {
+        bsStyle: 'success',
+        title: 'H1',
+        id: 'TOOLBAR_H1_BUTTON'
+      }
     }, {
-      icon: 'header',
       index: 0,
       type: H2,
-      isPressed: false
+      props: {
+        bsStyle: 'success',
+        title: 'H2',
+        id: 'TOOLBAR_H2_BUTTON'
+      }
     }, {
-      icon: 'header',
       index: 0,
       type: H3,
-      isPressed: false
-    }, {
-      icon: 'header',
-      index: 0,
-      type: H4,
-      isPressed: false
+      props: {
+        bsStyle: 'success',
+        title: 'H3',
+        id: 'TOOLBAR_H3_BUTTON'
+      }
     }]
   }, {
     index: 1,
-    isMouseDown: false,
-    isPressed: false,
     type: TEXT,
-    label: 'T'
+    props: {
+      bsStyle: 'success',
+      title: 'T',
+      id: 'TOOLBAR_T_BUTTON'
+    },
   }]
 }
 
 function buttons (state = [], action) {
   switch (action.type) {
-    case CLICK_BUTTON:
+    case SWITCH_BUTTON:
       return [
         ...state.slice(0, action.payload.index),
-        Object.assign({}, state[action.payload.index], {
-          isPressed: !action.payload.isPressed
-        }),
-        ...state.slice(action.payload.index + 1)
-      ];
-    case MOUSE_DOWN_BUTTON:
-      action.event.preventDefault();
-      action.event.stopPropagation();
-      console.log(action.event.pageX, action.event.pageY);
-      return [
-        ...state.slice(0, action.payload.index),
-        Object.assign({}, state[action.payload.index], {
-          isMouseDown: true,
-          x: action.event.pageX,
-          y: action.event.pageY
-        }),
-        ...state.slice(action.payload.index + 1)
-      ];
-    case MOUSE_UP_BUTTON:
-      action.event.preventDefault();
-      action.event.stopPropagation();
-      console.log(action.event.pageX, action.event.pageY);
-      return [
-        ...state.slice(0, action.payload.index),
-        Object.assign({}, state[action.payload.index], {
-          isMouseDown: false
-        }),
-        ...state.slice(action.payload.index + 1)
-      ];
-    case MOUSE_MOVE_BUTTON:
-      console.log(action.event.pageX, action.event.pageY);
-      return [
-        ...state.slice(0, action.payload.index),
-        Object.assign({}, state[action.payload.index], {
-          x: action.event.pageX,
-          y: action.event.pageY
-        }),
+        Object.assign({
+          children: state[action.payload.index].children
+        }, action.payload),
         ...state.slice(action.payload.index + 1)
       ];
     default:

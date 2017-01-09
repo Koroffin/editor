@@ -1,45 +1,29 @@
 import { 
   CLICK_BUTTON, 
-  MOUSE_DOWN_BUTTON, 
-  MOUSE_UP_BUTTON, 
-  MOUSE_MOVE_BUTTON 
+  DRAG_START_BUTTON,
+  DRAG_END_BUTTON,
+  SWITCH_BUTTON
 } from '../constants/Toolbar'
 
+function defaultAction(action, button) {
+  return {
+    type: action,
+    payload: button
+  }
+}
+
 export function clickButton(button) {
-
-  return {
-    type: CLICK_BUTTON,
-    payload: button
-  }
-
+  return defaultAction(CLICK_BUTTON, button)
 }
 
-export function mouseDownButton(e, button) {
-
-  return {
-    type: MOUSE_DOWN_BUTTON,
-    event: e,
-    payload: button
-  }
-
+export function switchButton(button) {
+  return defaultAction(SWITCH_BUTTON, button);
 }
 
-export function mouseUpButton(e, button) {
-
-  return {
-    type: MOUSE_UP_BUTTON,
-    event: e,
-    payload: button
-  }
-
+export function dragStart(button) {
+  return defaultAction(DRAG_START_BUTTON, button);
 }
 
-export function mouseMoveButton(e, button) {
-
-  return {
-    type: MOUSE_MOVE_BUTTON,
-    event: e,
-    payload: button
-  }
-
+export function dragEnd(button) {
+  return defaultAction(DRAG_END_BUTTON, button);
 }
