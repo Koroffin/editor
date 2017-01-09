@@ -6,14 +6,12 @@ class DraggableDiv extends Component {
   render() {
     const { connectDragSource, children, componentProps } = this.props;
     const C = this.props.component;
-    return (
-      <C
-        {...componentProps}
-        ref={instance => connectDragSource(findDOMNode(instance))}
-      >
-        { children }
-      </C>
-    );
+    return <C
+      {...componentProps}
+      ref={instance => connectDragSource(findDOMNode(instance))}
+    >
+      { children }
+    </C>
   }
 }
 

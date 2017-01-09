@@ -14,15 +14,25 @@ export default class ElementsItem extends Component {
     }
   }
   render() {
-    const { style, ...rest } = this.props;
-    return <div className="elements_item" style={ style }>
+    const { selectElement, activeElement, element } = this.props;
+    return <div 
+      className={ activeElement === element.index ? "elements_item elements_item--active" : "elements_item" } 
+      style={ element.style }
+      onClick={ ()=> selectElement(element) }
+    >
       <div className="form-group">
-        <h3>{ this.getLabel(rest.type) }</h3>
+        <h3>{ this.getLabel(element.type) }</h3>
       </div>
     </div>
   }
 }
 
+/*
+  DOCS
+*/
+
 ElementsItem.propTypes = {
-  style: PropTypes.object.isRequired
+  element: PropTypes.object.isRequired,
+  selectElement: PropTypes.func.isRequired,
+  activeElement: PropTypes.number.isRequired
 }

@@ -11,13 +11,25 @@ export default class Elements extends Component {
     return <div className={ isButtonDragged ? "elements elements--active" : "elements" }>
       <ElementsPlaceholder />
       {els.map(element =>
-        <ElementsItem key={ element.index } {...element} />
+        <ElementsItem 
+          key={ element.index } 
+          element={ element } 
+          activeElement={ this.props.activeElement }
+          selectElement={ this.props.selectElement }
+        />
       )}
     </div>
   }
 }
 
+/*
+  DOCS
+*/
+
 Elements.propTypes = {
   els: PropTypes.array.isRequired,
-  isButtonDragged: PropTypes.bool.isRequired
+  isButtonDragged: PropTypes.bool.isRequired,
+  selectElement: PropTypes.func.isRequired,
+  clearSelection: PropTypes.func.isRequired,
+  activeElement: PropTypes.number.isRequired
 }

@@ -4,10 +4,14 @@ import {
   DRAG_END_BUTTON as TOOLBAR_DRAG_END_BUTTON
 } from '../constants/Toolbar'
 
-console.log(TOOLBAR_CLICK_BUTTON, TOOLBAR_DRAG_START_BUTTON, TOOLBAR_DRAG_END_BUTTON)
+import {
+  SELECT_ELEMENT, 
+  UNSELECT_ALL_ELEMENTS
+} from '../constants/Elements'
 
 const initialState = {
   isButtonDragged: false,
+  activeElement: -1,
   els: [ ]
 };
 
@@ -33,6 +37,16 @@ function els (state = [], action) {
   }
 }
 
+function activeElement (state=-1, action) {
+  switch (action.type) {
+    case SELECT_ELEMENT:
+      console.log(action.payload);
+      return action.payload.index;
+    default:
+      return state;
+  }
+}
+
 function isButtonDragged (state=false, action) {
   switch (action.type) {
     case TOOLBAR_DRAG_START_BUTTON:
@@ -48,7 +62,8 @@ export default function toolbar(state = initialState, action) {
 
   return {
     isButtonDragged: isButtonDragged(state.isButtonDragged, action),
-    els: els(state.els, action)
+    els: els(state.els, action),
+    activeElement: activeElement(state.activeElement, action)
   }
 
 }
