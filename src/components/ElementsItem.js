@@ -9,6 +9,7 @@ import 'jquery-ui';
 import 'jquery-ui/ui/widgets/mouse';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/resizable';
+import 'jquery-ui/themes/base/theme.css';
 import 'jquery-ui/themes/base/resizable.css';
 import 'jquery-ui-rotatable';
 
