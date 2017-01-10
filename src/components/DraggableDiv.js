@@ -6,12 +6,21 @@ class DraggableDiv extends Component {
   render() {
     const { connectDragSource, children, componentProps } = this.props;
     const C = this.props.component;
-    return <C
-      {...componentProps}
-      ref={instance => connectDragSource(findDOMNode(instance))}
-    >
-      { children }
-    </C>
+    if (C) {
+      return <C
+        {...componentProps}
+        ref={instance => connectDragSource(findDOMNode(instance))}
+      >
+        { children }
+      </C>
+    } else {
+      return <div
+        {...componentProps}
+        ref={instance => connectDragSource(findDOMNode(instance))}
+      >
+        { children }
+      </div>
+    }
   }
 }
 
@@ -20,7 +29,7 @@ const draggableDivSource = {
     if (props.dragStart) {
       props.dragStart();
     }
-    return {};
+    return props;
   },
   endDrag(props) {
     if (props.dragEnd) {
@@ -30,16 +39,18 @@ const draggableDivSource = {
   }
 };
 
-export default DragSource('note', draggableDivSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource()
-}))(DraggableDiv)
+export default (type)=> {
+  return DragSource(type, draggableDivSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource()
+  }))(DraggableDiv);
+}
 
 /*
   DOCS
 */
 
 DraggableDiv.propTypes = {
-  component: PropTypes.func.isRequired,
+  component: PropTypes.func,
   componentProps: PropTypes.object,
   dragStart: PropTypes.func,
   dragEnd: PropTypes.func

@@ -1,3 +1,2 @@
-export default {
-  BUTTON: 'button'
-};
+export const BUTTON  = 'button';
+export const ELEMENT = 'element';

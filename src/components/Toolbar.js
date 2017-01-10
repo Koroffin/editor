@@ -1,6 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 
-import DraggableDiv  from './DraggableDiv'
+import { BUTTON as ITEMTYPE_BUTTON } from '../constants/ItemTypes'
+
+import DraggableDivFn  from './DraggableDiv'
+const DraggableDiv = DraggableDivFn(ITEMTYPE_BUTTON)
 
 import SplitButton   from 'react-bootstrap/lib/SplitButton'
 import MenuItem      from 'react-bootstrap/lib/MenuItem'
@@ -31,6 +34,7 @@ export default class Toolbar extends Component {
             component={ (button.children && button.children.length) ? SplitButton : Button }
             dragStart={()=> this.props.dragStart(button)}
             dragEnd={()=> this.props.dragEnd(button)}
+            dropOnElementsPanel={(coordinates)=> this.props.dropOnElementsPanel(button, coordinates)}
           >
             {
               (button.children && button.children.length) ? (
@@ -57,5 +61,6 @@ Toolbar.propTypes = {
   clickButton: PropTypes.func.isRequired,
   dragStart: PropTypes.func.isRequired,
   dragEnd: PropTypes.func.isRequired,
-  switchButton: PropTypes.func.isRequired
+  switchButton: PropTypes.func.isRequired,
+  dropOnElementsPanel: PropTypes.func.isRequired
 }
