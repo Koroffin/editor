@@ -22,7 +22,6 @@ export function clearSelection(element) {
 }
 
 export function dragEnd(element, props) {
-  console.log(props);
   return defaultAction(DRAG_END_ELEMENT, { element: element, props: props });
 }
 

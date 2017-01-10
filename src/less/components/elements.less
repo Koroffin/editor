@@ -9,7 +9,15 @@
     display: block;
   }
 
-  &--placeholder {
+  &--empty &--empty_placeholder_wrapper {
+    display: block;
+  }
+
+  &--empty&--active &--empty_placeholder_wrapper {
+    display: none;
+  }
+
+  &--placeholder, &--empty_placeholder {
     margin: 40px auto;
     width: 80%;
     color: grey;
@@ -24,7 +32,7 @@
       top: 0;
       left: 0;
       background-color: white;
-      opacity: 0.5;
+      opacity: 0.8;
       height: 100%;
       width: 100%;
     }
@@ -36,7 +44,26 @@
     z-index: 2;
     &--active {
       border-radius: 5px;
-      border: 1px solid grey;      
+      margin-left: -1px;
+      margin-top: -1px;
+      border: 1px solid grey;
+      .ui-rotatable-handle {
+        display: block !important;
+      }
+    }
+
+    .ui-rotatable-handle {
+      display: none;
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background-color: grey;
+      border: 1px solid grey;
+      border-radius: 2.5px;
+      top: 50%;
+      left: 50%;
+      margin-top: -2.5px;
+      margin-left: -2.5px;
     }
   }
 }

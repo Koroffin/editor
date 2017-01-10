@@ -30,6 +30,5 @@ export function dragEnd(button) {
 }
 
 export function dropOnElementsPanel(button, coordinates) {
-  console.log(coordinates)
   return defaultAction(DROP_ON_ELEMENTS_PANEL, { button: button, coordinates: coordinates });
 }

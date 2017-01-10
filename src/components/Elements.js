@@ -1,15 +1,14 @@
 import React, { PropTypes, Component } from 'react'
 import { DropTarget, DragDropContext } from 'react-dnd';
-
-import css from '../less/components/elements.less';
-
-import ElementsPlaceholder from './ElementsPlaceholder'
-import ElementsItem        from './ElementsItem'
-
+import '../less/components/elements.less';
+import ElementsPlaceholder      from './ElementsPlaceholder'
+import ElementsEmptyPlaceholder from './ElementsEmptyPlaceholder'
+import ElementsItem             from './ElementsItem'
 import { 
   BUTTON as ITEMTYPE_BUTTON,
   ELEMENT as ITEMTYPE_ELEMENT 
 } from '../constants/ItemTypes'
+import classPrefix from '../utils/classPrefix'
 
 const dropTarget = {
   drop(props, monitor, component) {
@@ -26,18 +25,19 @@ const dropTarget = {
 class Elements extends Component {
   render() {
     const { els, isButtonDragged, connectDropTarget } = this.props;
-    return connectDropTarget(<div className={ isButtonDragged ? "elements elements--active" : "elements" }>
-      <ElementsPlaceholder />
+    return connectDropTarget(<div className={ classPrefix('elements', { isActive: isButtonDragged, isEmpty: !els.length }) }>
       {els.map(element =>
         <ElementsItem 
           key={ element.index } 
           element={ element } 
-          isSelected={ this.props.activeElement === element.index }
+          isSelected={ this.props.activeElement.index === element.index }
           selectElement={ this.props.selectElement }
           dragEnd={ this.props.dragEnd }
           dropOnElementsPanel={ this.props.dropOnElementsPanel }
         />
       )}
+      <ElementsPlaceholder />
+      <ElementsEmptyPlaceholder />
     </div>)
   }
 }
@@ -56,6 +56,6 @@ Elements.propTypes = {
   selectElement: PropTypes.func.isRequired,
   clearSelection: PropTypes.func.isRequired,
   dragEnd: PropTypes.func.isRequired,
-  activeElement: PropTypes.number.isRequired,
+  activeElement: PropTypes.object.isRequired,
   dropOnElementsPanel: PropTypes.func.isRequired
 }

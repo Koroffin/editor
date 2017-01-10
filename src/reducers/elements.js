@@ -16,7 +16,7 @@ import { findIndex } from 'lodash'
 
 const initialState = {
   isButtonDragged: false,
-  activeElement: -1,
+  activeElement: { },
   els: [ ]
 };
 
@@ -45,11 +45,10 @@ function els (state = [], action) {
           index: new Date().valueOf(),
           style: {
             top: (action.payload.coordinates.y - 35) + 'px',
-            left: action.payload.coordinates.x + 'px',
-            height: '100px',
-            width: '150px'
+            left: action.payload.coordinates.x + 'px'
           },
-          value: ''
+          elementStyle: { },
+          value: 'text'
         }
       ];
     case DROP_ON_ELEMENTS_PANEL:
@@ -72,11 +71,10 @@ function els (state = [], action) {
   }
 }
 
-function activeElement (state=-1, action) {
+function activeElement (state={}, action) {
   switch (action.type) {
     case SELECT_ELEMENT:
-      console.log(action.payload);
-      return action.payload.index;
+      return action.payload;
     default:
       return state;
   }
@@ -93,7 +91,7 @@ function isButtonDragged (state=false, action) {
   }  
 }
 
-export default function toolbar(state = initialState, action) {
+export default function (state = initialState, action) {
 
   return {
     isButtonDragged: isButtonDragged(state.isButtonDragged, action),
